@@ -1,0 +1,45 @@
+Prosta instrukcja do narzędzia awk
+awk to wszechstronne narzędzie tekstowe, które pozwala przetwarzać, analizować i manipulować danymi w plikach tekstowych lub wynikach innych poleceń.
+
+Podstawowa składnia
+
+awk 'warunek {akcja}' plik
+warunek – określa, które linie mają zostać przetworzone.
+akcja – definiuje, co zrobić z liniami spełniającymi warunek.
+Przykłady:
+Wyświetlenie określonej kolumny: Wyświetlenie drugiej kolumny w pliku rozdzielanym spacjami:
+
+
+awk '{print $2}' plik.txt
+Filtrowanie linii: Wyświetlenie linii, które zawierają słowo "error":
+
+
+awk '/error/ {print $0}' plik.txt
+$0 oznacza całą linię.
+Użycie separatora (np. CSV): Przetwarzanie pliku rozdzielanego przecinkami:
+
+awk -F',' '{print $1, $3}' plik.csv
+-F',' ustawia przecinek jako separator.
+Obliczenia na kolumnach: Obliczenie sumy liczb w drugiej kolumnie:
+
+
+awk '{suma += $2} END {print suma}' plik.txt
+Zmiana separatora wyjścia: Wyświetlenie kolumn z separatorami tabulacji:
+
+
+awk '{print $1 "\t" $2}' plik.txt
+Liczba linii w pliku: Policz liczbę linii:
+
+
+awk 'END {print NR}' plik.txt
+NR to wbudowana zmienna, która przechowuje numer aktualnej linii.
+Przydatne zmienne wbudowane w awk:
+$1, $2, ... – kolejne kolumny.
+$0 – cała linia.
+NR – numer bieżącej linii.
+NF – liczba kolumn w bieżącej linii.
+Łączenie z innymi poleceniami
+awk może być używane w potokach:
+
+
+cat plik.txt | awk '{print $1}'
